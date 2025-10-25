@@ -17,29 +17,52 @@ serve(async (req) => {
       throw new Error('Token de autenticação não fornecido');
     }
 
-    console.log('Fetching companies from Agilean API...');
+    console.log('Fetching all projects from Agilean API with pagination...');
 
-    const response = await fetch(
-      'https://api-support.hmg.agilean.com.br/api/v1/projects',
-      {
+    let allProjects: any[] = [];
+    let nextPageUrl: string | null = 'https://api-support.hmg.agilean.com.br/api/v1/projects?pageSize=100';
+
+    while (nextPageUrl) {
+      const response: Response = await fetch(nextPageUrl, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
-      }
-    );
+      });
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error('Agilean API error:', response.status, errorText);
-      throw new Error(`Erro ao buscar empresas: ${response.status}`);
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Agilean API error:', response.status, errorText);
+        throw new Error(`Erro ao buscar projetos: ${response.status}`);
+      }
+
+      const data: any = await response.json();
+      
+      if (data.result?.data) {
+        allProjects = [...allProjects, ...data.result.data];
+      }
+
+      // Check for next page link
+      const nextLink: any = data.result?.links?.find((link: any) => link.rel === 'nextPage');
+      nextPageUrl = nextLink?.href || null;
+
+      console.log(`Fetched ${data.result?.data?.length || 0} projects. Total so far: ${allProjects.length}`);
     }
 
-    const data = await response.json();
-    console.log('Companies fetched successfully:', data.result?.totalCount || 0);
+    console.log('All projects fetched successfully:', allProjects.length);
 
-    return new Response(JSON.stringify(data), {
+    // Return all projects in the same format
+    const finalResponse = {
+      result: {
+        data: allProjects,
+        links: []
+      },
+      errorMessage: null,
+      timeGenerated: new Date().toISOString()
+    };
+
+    return new Response(JSON.stringify(finalResponse), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   } catch (error) {

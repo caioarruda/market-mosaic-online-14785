@@ -51,8 +51,26 @@ export const CompanyCombobox: React.FC<CompanyComboboxProps> = ({
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[300px] p-0 bg-popover z-50">
-        <Command>
-          <CommandInput placeholder="Buscar projeto..." className="h-9" />
+        <Command shouldFilter={false}>
+          <CommandInput 
+            placeholder="Buscar projeto..." 
+            className="h-9"
+            onValueChange={(search) => {
+              // Custom filtering for exact match
+              const items = document.querySelectorAll('[cmdk-item]');
+              items.forEach((item) => {
+                const element = item as HTMLElement;
+                const text = element.textContent?.toLowerCase() || '';
+                const searchLower = search.toLowerCase();
+                
+                if (text.includes(searchLower)) {
+                  element.style.display = '';
+                } else {
+                  element.style.display = 'none';
+                }
+              });
+            }}
+          />
           <CommandList className="bg-background">
             <CommandEmpty>Nenhum projeto encontrado.</CommandEmpty>
             <CommandGroup>
@@ -60,7 +78,6 @@ export const CompanyCombobox: React.FC<CompanyComboboxProps> = ({
                 <CommandItem
                   key={company.id}
                   value={company.name}
-                  keywords={[company.name, company.id]}
                   onSelect={() => {
                     onChange(company.id);
                     setOpen(false);

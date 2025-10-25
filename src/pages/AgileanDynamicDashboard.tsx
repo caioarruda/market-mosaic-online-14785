@@ -338,16 +338,19 @@ export default function AgileanDynamicDashboard() {
                     <div key={widget.id} className="relative">
                       {isEditMode && (
                         <div className="absolute top-2 right-2 z-10 flex gap-2">
-                          <div className="drag-handle cursor-move bg-background/80 p-1 rounded border">
+                          <div className="drag-handle cursor-move bg-background/80 p-1 rounded border hover:bg-background">
                             <LayoutDashboard className="w-4 h-4" />
                           </div>
                           <Button
-                            variant="ghost"
+                            variant="destructive"
                             size="sm"
-                            onClick={() => removeWidget(widget.id)}
-                            className="bg-background/80"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              removeWidget(widget.id);
+                            }}
+                            className="h-7 w-7 p-0"
                           >
-                            <Trash2 className="w-4 h-4 text-danger" />
+                            <Trash2 className="w-4 h-4" />
                           </Button>
                         </div>
                       )}
