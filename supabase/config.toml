@@ -1,1 +1,4 @@
 project_id = "xvgkiaytgeqduqbvgrra"
+
+[functions.fetch-project-indicators]
+verify_jwt = false

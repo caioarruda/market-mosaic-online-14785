@@ -2,7 +2,7 @@
 import React from 'react';
 import { 
   BarChart, PieChart, BarChart3, Wallet, LineChart, Globe, 
-  DollarSign, Settings, ChevronRight, ChevronLeft, Home
+  DollarSign, Settings, ChevronRight, ChevronLeft, Home, LayoutDashboard
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -29,6 +29,11 @@ export function Sidebar({ isCollapsed, onToggle, className }: SidebarProps) {
       title: 'Dashboard',
       icon: Home,
       href: '/',
+    },
+    {
+      title: 'Dashboard Dinâmico',
+      icon: LayoutDashboard,
+      href: '/dynamic',
     },
     {
       title: 'Stocks',
