@@ -40,10 +40,10 @@ export const TableWidget = ({ data, title }: TableWidgetProps) => {
             <TableRow>
               <TableHead>Mês</TableHead>
               <TableHead className="text-right">IDP</TableHead>
-              <TableHead className="text-right">VA Acum.</TableHead>
-              <TableHead className="text-right">VP Acum.</TableHead>
-              <TableHead className="text-right">Valor Real</TableHead>
-              <TableHead className="text-right">Valor Planejado</TableHead>
+              <TableHead className="text-right">Avanço Real Acum.</TableHead>
+              <TableHead className="text-right">Avanço Planejado Acum.</TableHead>
+              <TableHead className="text-right">Custo Real</TableHead>
+              <TableHead className="text-right">Custo Planejado</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
