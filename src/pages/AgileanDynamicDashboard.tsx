@@ -15,9 +15,11 @@ import { RestrictionsKPIWidget } from '@/components/widgets/RestrictionsKPIWidge
 import { RestrictionsChartWidget } from '@/components/widgets/RestrictionsChartWidget';
 import { RestrictionsTableWidget } from '@/components/widgets/RestrictionsTableWidget';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import agileanLogo from '@/assets/agilean-logo.png';
+import { WidgetConfigurator } from '@/components/dashboard/WidgetConfigurator';
+import { CompanyCombobox } from '@/components/dashboard/CompanyCombobox';
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
-
 const DEFAULT_WIDGETS: WidgetConfig[] = [
   {
     id: 'kpi-1',
@@ -86,7 +88,8 @@ export default function AgileanDynamicDashboard() {
     if (saved) {
       try {
         const layout = JSON.parse(saved);
-        setWidgets(layout.widgets || DEFAULT_WIDGETS);
+        const widgetsFromStorage = Array.isArray(layout.widgets) ? layout.widgets : [];
+        setWidgets(widgetsFromStorage.length > 0 ? widgetsFromStorage : DEFAULT_WIDGETS);
       } catch (error) {
         console.error('Error loading saved layout:', error);
         setWidgets(DEFAULT_WIDGETS);
@@ -176,9 +179,21 @@ export default function AgileanDynamicDashboard() {
     setWidgets([...widgets, newWidget]);
   };
 
+  const handleAddWidget = (config: WidgetConfig) => {
+    const generatedId = (config as any).id || `${config.type}-${Date.now()}`;
+    const newWidget: WidgetConfig = {
+      ...config,
+      id: generatedId,
+      x: 0,
+      y: Infinity,
+      w: config.w || 6,
+      h: config.h || 3,
+      color: config.color || 'default',
+    } as WidgetConfig;
+    setWidgets([...widgets, newWidget]);
+  };
+
   const layout: Layout[] = widgets.map((widget) => ({
-    i: widget.id,
-    x: widget.x,
     y: widget.y,
     w: widget.w,
     h: widget.h,
@@ -194,7 +209,10 @@ export default function AgileanDynamicDashboard() {
         <div className="max-w-[1800px] mx-auto p-6 space-y-6">
           {/* Header */}
           <div className="flex items-center justify-between">
-            <h1 className="text-3xl font-heading font-bold text-primary">Agilean Dashboard Pro</h1>
+            <div className="flex items-center gap-3">
+              <img src={agileanLogo} alt="Agilean logo" className="h-8 w-auto" />
+              <h1 className="text-3xl font-heading font-bold text-primary">Agilean Dashboard Pro</h1>
+            </div>
             
             <div className="flex items-center gap-3">
               <Dialog open={tokenDialogOpen} onOpenChange={setTokenDialogOpen}>
@@ -248,22 +266,16 @@ export default function AgileanDynamicDashboard() {
               {/* Controls */}
               <div className="flex items-center justify-between bg-card p-4 rounded-lg border">
                 <div className="flex items-center gap-3">
-                  <Label htmlFor="company-select" className="text-sm whitespace-nowrap">Empresa/Projeto:</Label>
+                  <Label htmlFor="company-select" className="text-sm whitespace-nowrap">Projeto:</Label>
                   {companiesLoading ? (
                     <Loader2 className="w-4 h-4 animate-spin" />
                   ) : (
-                    <Select value={selectedCompanyId} onValueChange={setSelectedCompanyId}>
-                      <SelectTrigger id="company-select" className="w-[300px]">
-                        <SelectValue placeholder="Selecione uma empresa" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {companiesData?.result?.data.map((company) => (
-                          <SelectItem key={company.id} value={company.id}>
-                            {company.name}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                    <CompanyCombobox
+                      companies={companiesData?.result?.data || []}
+                      value={selectedCompanyId}
+                      onChange={setSelectedCompanyId}
+                      disabled={companiesLoading}
+                    />
                   )}
 
                   <Button
@@ -275,10 +287,13 @@ export default function AgileanDynamicDashboard() {
                   </Button>
 
                   {isEditMode && (
-                    <Button size="sm" variant="outline" onClick={addTextWidget}>
-                      <Plus className="w-4 h-4 mr-2" />
-                      Adicionar Widget de Texto
-                    </Button>
+                    <div className="flex items-center gap-2">
+                      <WidgetConfigurator isNew onSave={handleAddWidget} />
+                      <Button size="sm" variant="outline" onClick={addTextWidget}>
+                        <Plus className="w-4 h-4 mr-2" />
+                        Adicionar Texto
+                      </Button>
+                    </div>
                   )}
                 </div>
                 

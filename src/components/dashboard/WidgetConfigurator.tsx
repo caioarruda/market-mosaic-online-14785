@@ -83,7 +83,7 @@ export const WidgetConfigurator = ({ widget, onSave, isNew = false }: WidgetConf
           </Button>
         )}
       </DialogTrigger>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto z-[60]">
         <DialogHeader>
           <DialogTitle>{isNew ? 'Novo Widget' : 'Configurar Widget'}</DialogTitle>
         </DialogHeader>
@@ -106,14 +106,15 @@ export const WidgetConfigurator = ({ widget, onSave, isNew = false }: WidgetConf
                 setConfig({ ...config, type: value })
               }
             >
-              <SelectTrigger id="type">
-                <SelectValue />
+              <SelectTrigger id="type" aria-label="Tipo de Widget">
+                <SelectValue placeholder="Selecione..." />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="bg-popover text-popover-foreground z-50">
                 <SelectItem value="kpi">KPI</SelectItem>
                 <SelectItem value="chart">Gráfico</SelectItem>
                 <SelectItem value="info">Informações</SelectItem>
                 <SelectItem value="table">Tabela</SelectItem>
+                <SelectItem value="text">Texto</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -128,10 +129,10 @@ export const WidgetConfigurator = ({ widget, onSave, isNew = false }: WidgetConf
                     setConfig({ ...config, chartType: value })
                   }
                 >
-                  <SelectTrigger id="chartType">
-                    <SelectValue />
+                  <SelectTrigger id="chartType" aria-label="Tipo de Gráfico">
+                    <SelectValue placeholder="Selecione..." />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-popover text-popover-foreground z-50">
                     <SelectItem value="line">Linha</SelectItem>
                     <SelectItem value="area">Área</SelectItem>
                     <SelectItem value="bar">Barras</SelectItem>
