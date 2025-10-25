@@ -26,7 +26,7 @@ const DEFAULT_WIDGETS: WidgetConfig[] = [
   {
     id: 'kpi-1',
     type: 'kpi',
-    title: 'Indicadores de Restrições',
+    title: 'Indicadores de Desempenho do Projeto',
     color: 'default',
     x: 0,
     y: 0,
@@ -36,7 +36,7 @@ const DEFAULT_WIDGETS: WidgetConfig[] = [
   {
     id: 'chart-1',
     type: 'chart',
-    title: 'Histórico de IRR e Restrições',
+    title: 'Evolução do Avanço Físico vs Planejado',
     chartType: 'line',
     color: 'default',
     x: 6,
@@ -47,7 +47,7 @@ const DEFAULT_WIDGETS: WidgetConfig[] = [
   {
     id: 'table-1',
     type: 'table',
-    title: 'Restrições Mais Atrasadas',
+    title: 'Histórico Mensal de Indicadores',
     color: 'default',
     x: 0,
     y: 3,

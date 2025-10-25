@@ -25,18 +25,18 @@ interface ChartWidgetProps {
 }
 
 const metricConfig: Record<MetricKey, { label: string; color: string }> = {
-  idp: { label: 'IDP', color: '#8b5cf6' },
-  va: { label: 'VA', color: '#10b981' },
-  vp: { label: 'VP', color: '#3b82f6' },
-  reprogrammedProgress: { label: 'Progresso Reprogramado', color: '#f59e0b' },
-  vaAccum: { label: 'VA Acumulado', color: '#10b981' },
-  vpAccum: { label: 'VP Acumulado', color: '#3b82f6' },
-  reprogrammedProgressAccum: { label: 'Progresso Reprogramado Acumulado', color: '#f59e0b' },
-  realValue: { label: 'Valor Real', color: '#10b981' },
-  plannedValue: { label: 'Valor Planejado', color: '#3b82f6' },
-  reprogrammedValueAccum: { label: 'Valor Reprogramado Acumulado', color: '#f59e0b' },
-  realValueAccum: { label: 'Valor Real Acumulado', color: '#10b981' },
-  plannedValueAccum: { label: 'Valor Planejado Acumulado', color: '#3b82f6' },
+  idp: { label: 'IDP - Índice de Desempenho de Prazo', color: '#8b5cf6' },
+  va: { label: 'Avanço Físico Real', color: '#10b981' },
+  vp: { label: 'Avanço Físico Planejado', color: '#3b82f6' },
+  reprogrammedProgress: { label: 'Avanço Reprogramado', color: '#f59e0b' },
+  vaAccum: { label: 'Avanço Físico Real Acumulado', color: '#10b981' },
+  vpAccum: { label: 'Avanço Físico Planejado Acumulado', color: '#3b82f6' },
+  reprogrammedProgressAccum: { label: 'Avanço Reprogramado Acumulado', color: '#f59e0b' },
+  realValue: { label: 'Custo Real', color: '#10b981' },
+  plannedValue: { label: 'Custo Planejado', color: '#3b82f6' },
+  reprogrammedValueAccum: { label: 'Custo Reprogramado Acumulado', color: '#f59e0b' },
+  realValueAccum: { label: 'Custo Real Acumulado', color: '#10b981' },
+  plannedValueAccum: { label: 'Custo Planejado Acumulado', color: '#3b82f6' },
 };
 
 export const ChartWidget = ({ data, title, chartType, metrics }: ChartWidgetProps) => {
