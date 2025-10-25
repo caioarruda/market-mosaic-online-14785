@@ -59,7 +59,8 @@ export const CompanyCombobox: React.FC<CompanyComboboxProps> = ({
               {companies.map((company) => (
                 <CommandItem
                   key={company.id}
-                  value={`${company.name}__${company.id}`}
+                  value={company.name}
+                  keywords={[company.name, company.id]}
                   onSelect={() => {
                     onChange(company.id);
                     setOpen(false);

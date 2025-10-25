@@ -1,14 +1,46 @@
 export interface Company {
   id: string;
   name: string;
+  shortName: string;
+  logo: string;
+  branchOfficeId: string;
+  companyId: string;
+  companyName: string;
+  branchOfficeName: string;
+  cep: string;
+  street: string;
+  district: string;
+  number: string;
+  complement: string;
+  city: string;
+  uf: string;
+  phone: string;
+  email: string;
+  totalArea: number;
+  privativeArea: number;
+  startDate: string | null;
+  endDate: string | null;
+  plan: number;
+  permissions: Array<{
+    id: string;
+    projectId: string;
+    permission: string;
+  }>;
+  cnpj: string;
+  usersCount: number | null;
+  customerXId: string | null;
+  isActive: boolean;
+  idcActualCostReferenceDate: string | null;
 }
 
 export interface CompaniesResponse {
   result: {
     data: Company[];
-    totalCount: number;
-    pageSize: number;
-    currentPage: number;
+    links: Array<{
+      href: string;
+      rel: string;
+      method: string;
+    }>;
   };
   errorMessage: string | null;
   timeGenerated: string;
