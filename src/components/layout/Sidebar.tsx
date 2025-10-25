@@ -26,54 +26,9 @@ export function Sidebar({ isCollapsed, onToggle, className }: SidebarProps) {
   
   const navItems = [
     {
-      title: 'Dashboard',
-      icon: Home,
-      href: '/',
-    },
-    {
       title: 'Dashboard Dinâmico',
       icon: LayoutDashboard,
       href: '/dynamic',
-    },
-    {
-      title: 'Stocks',
-      icon: BarChart,
-      href: '/stocks',
-    },
-    {
-      title: 'Markets',
-      icon: BarChart3,
-      href: '/markets',
-    },
-    {
-      title: 'Currencies',
-      icon: DollarSign,
-      href: '/currencies',
-    },
-    {
-      title: 'Global',
-      icon: Globe,
-      href: '/global',
-    },
-    {
-      title: 'Portfolio',
-      icon: Wallet,
-      href: '/portfolio',
-    },
-    {
-      title: 'Performance',
-      icon: LineChart,
-      href: '/performance',
-    },
-    {
-      title: 'Analysis',
-      icon: PieChart,
-      href: '/analysis',
-    },
-    {
-      title: 'Settings',
-      icon: Settings,
-      href: '/settings',
     }
   ];
 
@@ -83,12 +38,12 @@ export function Sidebar({ isCollapsed, onToggle, className }: SidebarProps) {
       isCollapsed ? "w-16" : "w-64",
       className
     )}>
-      <div className="flex h-16 items-center justify-center border-b border-sidebar-border">
+      <div className="flex h-16 items-center justify-center border-b border-sidebar-border px-4">
         <h2 className={cn(
-          "font-semibold tracking-tight transition-opacity duration-200",
+          "font-heading font-bold tracking-tight transition-opacity duration-200 text-primary",
           isCollapsed ? "opacity-0" : "opacity-100"
         )}>
-          MarketPulse
+          Agilean Dashboard Pro
         </h2>
         
         <Button
@@ -136,9 +91,8 @@ export function Sidebar({ isCollapsed, onToggle, className }: SidebarProps) {
           "transition-opacity duration-200 rounded-md bg-sidebar-accent/50 p-2 text-xs text-sidebar-accent-foreground",
           isCollapsed ? "opacity-0" : "opacity-100"
         )}>
-          <p className="font-medium">Market Status</p>
-          <p>Markets are open</p>
-          <p className="text-[10px]">Closes in 3h 45m</p>
+          <p className="font-medium">Status do Sistema</p>
+          <p>Conectado</p>
         </div>
       </div>
     </aside>

@@ -50,12 +50,18 @@ export type MetricKey =
   | 'realValue' | 'plannedValue' | 'reprogrammedValueAccum'
   | 'realValueAccum' | 'plannedValueAccum';
 
+export type WidgetColor = 'telha' | 'areia' | 'ceu' | 'aco' | 'solda' | 'default';
+
 export interface WidgetConfig {
   id: string;
-  type: 'kpi' | 'chart' | 'info' | 'table';
+  type: 'kpi' | 'chart' | 'info' | 'table' | 'text';
   title: string;
   chartType?: ChartType;
   metrics?: MetricKey[];
+  color?: WidgetColor;
+  content?: string;
+  fontSize?: 'sm' | 'base' | 'lg' | 'xl' | '2xl';
+  textColor?: string;
   x: number;
   y: number;
   w: number;

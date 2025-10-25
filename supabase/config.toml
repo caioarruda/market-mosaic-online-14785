@@ -2,3 +2,9 @@ project_id = "xvgkiaytgeqduqbvgrra"
 
 [functions.fetch-project-indicators]
 verify_jwt = false
+
+[functions.fetch-companies]
+verify_jwt = false
+
+[functions.fetch-project-indicators-medium]
+verify_jwt = false

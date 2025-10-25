@@ -20,9 +20,15 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				sans: ['Inter var', 'sans-serif'],
+				sans: ['Manrope', 'Helvetica', 'Arial', 'sans-serif'],
+				heading: ['Manrope', 'Helvetica', 'Arial', 'sans-serif'],
 			},
 			colors: {
+				telha: 'hsl(var(--telha))',
+				areia: 'hsl(var(--areia))',
+				ceu: 'hsl(var(--ceu))',
+				aco: 'hsl(var(--aco))',
+				solda: 'hsl(var(--solda))',
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',

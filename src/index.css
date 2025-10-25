@@ -1,34 +1,39 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
+    /* Agilean Brand Colors */
+    --telha: 15 82% 58%; /* #EE6437 */
+    --areia: 31 88% 72%; /* #F6B777 */
+    --ceu: 199 93% 73%; /* #7AC5F8 */
+    --aco: 200 4% 38%; /* #575C61 */
+    --solda: 14 54% 16%; /* #3D1914 */
+
+    /* Design System */
     --background: 0 0% 98%;
-    --foreground: 220 14% 10%;
+    --foreground: 200 4% 38%;
 
     --card: 0 0% 100%;
-    --card-foreground: 220 14% 10%;
+    --card-foreground: 200 4% 38%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 14% 10%;
+    --popover-foreground: 200 4% 38%;
 
-    --primary: 224 82% 56%;
+    --primary: 15 82% 58%; /* Telha */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 220 14% 96%;
-    --secondary-foreground: 220 14% 14%;
+    --secondary: 31 88% 72%; /* Areia */
+    --secondary-foreground: 14 54% 16%;
 
-    --muted: 220 14% 96%;
-    --muted-foreground: 220 8% 46%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 200 4% 38%;
 
-    --accent: 224 82% 96%;
-    --accent-foreground: 224 82% 26%;
+    --accent: 199 93% 73%; /* Céu */
+    --accent-foreground: 14 54% 16%;
 
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
     --success: 142 72% 52%;
@@ -42,43 +47,43 @@
 
     --border: 220 13% 91%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 224 82% 56%;
+    --ring: 15 82% 58%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
-    --sidebar-background: 220 14% 10%;
-    --sidebar-foreground: 220 14% 96%;
-    --sidebar-primary: 224 82% 56%;
+    --sidebar-background: 14 54% 16%; /* Solda */
+    --sidebar-foreground: 0 0% 96%;
+    --sidebar-primary: 15 82% 58%; /* Telha */
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 220 14% 18%;
-    --sidebar-accent-foreground: 220 14% 96%;
-    --sidebar-border: 220 14% 18%;
-    --sidebar-ring: 224 82% 56%;
+    --sidebar-accent: 200 4% 38%; /* Aço */
+    --sidebar-accent-foreground: 0 0% 96%;
+    --sidebar-border: 200 4% 38%;
+    --sidebar-ring: 15 82% 58%;
   }
 
   .dark {
-    --background: 220 14% 10%;
-    --foreground: 220 14% 96%;
+    --background: 14 54% 16%;
+    --foreground: 0 0% 96%;
 
-    --card: 220 14% 13%;
-    --card-foreground: 220 14% 96%;
+    --card: 200 4% 20%;
+    --card-foreground: 0 0% 96%;
 
-    --popover: 220 14% 13%;
-    --popover-foreground: 220 14% 96%;
+    --popover: 200 4% 20%;
+    --popover-foreground: 0 0% 96%;
 
-    --primary: 224 82% 56%;
+    --primary: 15 82% 58%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 220 14% 18%;
-    --secondary-foreground: 220 14% 96%;
+    --secondary: 31 88% 72%;
+    --secondary-foreground: 14 54% 16%;
 
-    --muted: 220 14% 18%;
-    --muted-foreground: 220 14% 72%;
+    --muted: 200 4% 30%;
+    --muted-foreground: 0 0% 72%;
 
-    --accent: 224 82% 26%;
+    --accent: 199 93% 73%;
     --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
     --success: 142 72% 52%;
@@ -90,9 +95,9 @@
     --danger: 0 84% 60%;
     --danger-foreground: 0 0% 100%;
 
-    --border: 240 3.7% 15.9%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 224 82% 56%;
+    --border: 200 4% 30%;
+    --input: 200 4% 25%;
+    --ring: 15 82% 58%;
   }
 }
 
@@ -109,6 +114,10 @@
   body {
     @apply bg-background text-foreground font-sans;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
   }
 
   /* Glass morphism */
