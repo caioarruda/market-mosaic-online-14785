@@ -18,7 +18,7 @@ import {
 import { Checkbox } from '@/components/ui/checkbox';
 import { WidgetConfig, ChartType, MetricKey } from '@/types/agilean';
 import { Plus, Settings } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface WidgetConfiguratorProps {
   widget?: WidgetConfig;
@@ -55,6 +55,24 @@ export const WidgetConfigurator = ({ widget, onSave, isNew = false }: WidgetConf
       h: 4,
     }
   );
+
+  useEffect(() => {
+    if (open && widget) {
+      setConfig(widget);
+    } else if (open && isNew) {
+      setConfig({
+        id: `widget-${Date.now()}`,
+        type: 'chart',
+        title: 'Novo Widget',
+        chartType: 'line',
+        metrics: ['vaAccum', 'vpAccum'],
+        x: 0,
+        y: 0,
+        w: 6,
+        h: 4,
+      });
+    }
+  }, [open, widget, isNew]);
 
   const handleSave = () => {
     onSave(config);
@@ -109,7 +127,7 @@ export const WidgetConfigurator = ({ widget, onSave, isNew = false }: WidgetConf
               <SelectTrigger id="type" aria-label="Tipo de Widget">
                 <SelectValue placeholder="Selecione..." />
               </SelectTrigger>
-              <SelectContent className="bg-popover text-popover-foreground z-50">
+              <SelectContent className="bg-popover text-popover-foreground z-[70]">
                 <SelectItem value="kpi">KPI</SelectItem>
                 <SelectItem value="chart">Gráfico</SelectItem>
                 <SelectItem value="info">Informações</SelectItem>
@@ -132,7 +150,7 @@ export const WidgetConfigurator = ({ widget, onSave, isNew = false }: WidgetConf
                   <SelectTrigger id="chartType" aria-label="Tipo de Gráfico">
                     <SelectValue placeholder="Selecione..." />
                   </SelectTrigger>
-                  <SelectContent className="bg-popover text-popover-foreground z-50">
+                  <SelectContent className="bg-popover text-popover-foreground z-[70]">
                     <SelectItem value="line">Linha</SelectItem>
                     <SelectItem value="area">Área</SelectItem>
                     <SelectItem value="bar">Barras</SelectItem>

@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Loader2, Printer, Settings, Plus, Trash2, LayoutDashboard } from 'lucide-react';
+import { Loader2, Printer, Settings, Plus, Trash2, LayoutDashboard, Pencil } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
 import { Sidebar } from '@/components/layout/Sidebar';
 import { TextWidget } from '@/components/widgets/TextWidget';
@@ -193,6 +193,10 @@ export default function AgileanDynamicDashboard() {
     setWidgets([...widgets, newWidget]);
   };
 
+  const handleUpdateWidget = (updatedConfig: WidgetConfig) => {
+    setWidgets(widgets.map(w => w.id === updatedConfig.id ? updatedConfig : w));
+  };
+
   const layout: Layout[] = widgets.map((widget) => ({
     i: widget.id,
     x: widget.x,
@@ -341,6 +345,10 @@ export default function AgileanDynamicDashboard() {
                           <div className="drag-handle cursor-move bg-background/80 p-1 rounded border hover:bg-background">
                             <LayoutDashboard className="w-4 h-4" />
                           </div>
+                          <WidgetConfigurator
+                            widget={widget}
+                            onSave={handleUpdateWidget}
+                          />
                           <Button
                             variant="destructive"
                             size="sm"
