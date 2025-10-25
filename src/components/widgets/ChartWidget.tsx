@@ -28,15 +28,15 @@ const metricConfig: Record<MetricKey, { label: string; color: string }> = {
   idp: { label: 'IDP', color: '#8b5cf6' },
   va: { label: 'VA', color: '#10b981' },
   vp: { label: 'VP', color: '#3b82f6' },
-  reprogrammedProgress: { label: 'Progresso Reprog.', color: '#f59e0b' },
+  reprogrammedProgress: { label: 'Progresso Reprogramado', color: '#f59e0b' },
   vaAccum: { label: 'VA Acumulado', color: '#10b981' },
   vpAccum: { label: 'VP Acumulado', color: '#3b82f6' },
-  reprogrammedProgressAccum: { label: 'Progresso Acum. Reprog.', color: '#f59e0b' },
+  reprogrammedProgressAccum: { label: 'Progresso Reprogramado Acumulado', color: '#f59e0b' },
   realValue: { label: 'Valor Real', color: '#10b981' },
   plannedValue: { label: 'Valor Planejado', color: '#3b82f6' },
-  reprogrammedValueAccum: { label: 'Valor Reprog. Acum.', color: '#f59e0b' },
-  realValueAccum: { label: 'Valor Real Acum.', color: '#10b981' },
-  plannedValueAccum: { label: 'Valor Planejado Acum.', color: '#3b82f6' },
+  reprogrammedValueAccum: { label: 'Valor Reprogramado Acumulado', color: '#f59e0b' },
+  realValueAccum: { label: 'Valor Real Acumulado', color: '#10b981' },
+  plannedValueAccum: { label: 'Valor Planejado Acumulado', color: '#3b82f6' },
 };
 
 export const ChartWidget = ({ data, title, chartType, metrics }: ChartWidgetProps) => {

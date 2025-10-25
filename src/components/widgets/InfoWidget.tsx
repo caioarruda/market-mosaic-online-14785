@@ -25,7 +25,7 @@ export const InfoWidget = ({ data, title }: InfoWidgetProps) => {
         <div className="flex items-start gap-3 p-3 bg-primary/5 rounded-lg">
           <Calendar className="w-5 h-5 text-primary mt-1" />
           <div>
-            <p className="text-sm font-medium">Data de Término do Projeto</p>
+            <p className="text-sm font-medium">Data Final do Projeto</p>
             <p className="text-lg">{formatDate(data.projectEndDate)}</p>
           </div>
         </div>
@@ -33,7 +33,7 @@ export const InfoWidget = ({ data, title }: InfoWidgetProps) => {
         <div className="flex items-start gap-3 p-3 bg-primary/5 rounded-lg">
           <Calendar className="w-5 h-5 text-primary mt-1" />
           <div>
-            <p className="text-sm font-medium">Data de Reprogramação</p>
+            <p className="text-sm font-medium">Data Final Reprogramada</p>
             <p className="text-lg">{formatDate(data.reprogrammingEndDate)}</p>
           </div>
         </div>
@@ -41,7 +41,7 @@ export const InfoWidget = ({ data, title }: InfoWidgetProps) => {
         <div className="flex items-start gap-3 p-3 bg-primary/5 rounded-lg">
           <Clock className="w-5 h-5 text-primary mt-1" />
           <div>
-            <p className="text-sm font-medium">Atraso Total</p>
+            <p className="text-sm font-medium">Atraso</p>
             <p className="text-lg">{Math.abs(data.delay)} dias</p>
           </div>
         </div>
@@ -57,11 +57,11 @@ export const InfoWidget = ({ data, title }: InfoWidgetProps) => {
               <p className="font-semibold">{(data.vpAccum * 100).toFixed(2)}%</p>
             </div>
             <div>
-              <p className="text-muted-foreground">Progresso Reprog.</p>
+              <p className="text-muted-foreground">Progresso Reprogramado Acumulado</p>
               <p className="font-semibold">{(data.reprogrammedProgressAccum * 100).toFixed(2)}%</p>
             </div>
             <div>
-              <p className="text-muted-foreground">IDP Atual</p>
+              <p className="text-muted-foreground">IDP</p>
               <p className="font-semibold">{(data.idp * 100).toFixed(2)}%</p>
             </div>
           </div>

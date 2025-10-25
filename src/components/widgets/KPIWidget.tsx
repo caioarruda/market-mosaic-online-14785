@@ -30,7 +30,7 @@ export const KPIWidget = ({ data, title }: KPIWidgetProps) => {
       <div className="grid grid-cols-2 gap-4 flex-1">
         <div className="flex flex-col justify-center items-center p-4 bg-primary/5 rounded-lg">
           <Activity className="w-8 h-8 mb-2 text-primary" />
-          <span className="text-sm text-muted-foreground">IDP Atual</span>
+          <span className="text-sm text-muted-foreground">IDP</span>
           <span className={`text-2xl font-bold ${isPositive ? 'text-success' : 'text-danger'}`}>
             {formatPercentage(data.idp)}
           </span>
@@ -38,19 +38,19 @@ export const KPIWidget = ({ data, title }: KPIWidgetProps) => {
 
         <div className="flex flex-col justify-center items-center p-4 bg-primary/5 rounded-lg">
           <Calendar className="w-8 h-8 mb-2 text-primary" />
-          <span className="text-sm text-muted-foreground">Atraso (dias)</span>
-          <span className="text-2xl font-bold">{data.delay}</span>
+          <span className="text-sm text-muted-foreground">Atraso</span>
+          <span className="text-2xl font-bold">{data.delay} dias</span>
         </div>
 
         <div className="flex flex-col justify-center items-center p-4 bg-primary/5 rounded-lg">
           <DollarSign className="w-8 h-8 mb-2 text-primary" />
-          <span className="text-sm text-muted-foreground">Valor Real Acum.</span>
+          <span className="text-sm text-muted-foreground">Valor Real Acumulado</span>
           <span className="text-xl font-bold">{formatCurrency(data.realValueAccum)}</span>
         </div>
 
         <div className="flex flex-col justify-center items-center p-4 bg-primary/5 rounded-lg">
           <DollarSign className="w-8 h-8 mb-2 text-primary" />
-          <span className="text-sm text-muted-foreground">Valor Planejado Acum.</span>
+          <span className="text-sm text-muted-foreground">Valor Planejado Acumulado</span>
           <span className="text-xl font-bold">{formatCurrency(data.plannedValueAccum)}</span>
         </div>
       </div>
@@ -63,7 +63,7 @@ export const KPIWidget = ({ data, title }: KPIWidgetProps) => {
             <TrendingDown className="w-5 h-5 text-danger" />
           )}
           <span className="text-sm">
-            Delta de Avanço: {formatPercentage(Math.abs(data.advanceDelta))}
+            Variação de Avanço: {formatPercentage(Math.abs(data.advanceDelta))}
           </span>
         </div>
       </div>
