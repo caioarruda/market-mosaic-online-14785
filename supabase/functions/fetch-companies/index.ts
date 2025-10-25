@@ -20,7 +20,7 @@ serve(async (req) => {
     console.log('Fetching companies from Agilean API...');
 
     const response = await fetch(
-      'https://api-support.hmg.agilean.com.br/api/v1/companies?pageSize=1000',
+      'https://api-support.hmg.agilean.com.br/api/v1/projects',
       {
         method: 'GET',
         headers: {
