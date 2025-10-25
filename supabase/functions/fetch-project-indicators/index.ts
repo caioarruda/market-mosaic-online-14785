@@ -1,87 +1,63 @@
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.39.3'
+import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-}
+};
 
-interface RequestBody {
-  projectId: string;
-}
-
-Deno.serve(async (req) => {
-  // Handle CORS preflight requests
+serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
-    const { projectId }: RequestBody = await req.json();
+    const { projectId, token } = await req.json();
+    
+    if (!token) {
+      throw new Error('Token de autenticação não fornecido');
+    }
 
     if (!projectId) {
-      return new Response(
-        JSON.stringify({ error: 'Project ID is required' }),
-        { 
-          status: 400, 
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
-        }
-      );
+      throw new Error('ID do projeto não fornecido');
     }
 
-    const apiToken = Deno.env.get('AGILEAN_API_TOKEN');
-    if (!apiToken) {
-      console.error('AGILEAN_API_TOKEN not configured');
-      return new Response(
-        JSON.stringify({ error: 'API token not configured' }),
-        { 
-          status: 500, 
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
-        }
-      );
-    }
+    console.log('Fetching project indicators for project:', projectId);
 
-    const apiUrl = `https://api-support.hmg.agilean.com.br/api/v1/portal/global/project/${projectId}/indicators-long-data`;
-    
-    console.log(`Fetching indicators for project: ${projectId}`);
-    
-    const response = await fetch(apiUrl, {
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${apiToken}`,
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if (!response.ok) {
-      console.error(`API request failed with status: ${response.status}`);
-      return new Response(
-        JSON.stringify({ error: `API request failed: ${response.statusText}` }),
-        { 
-          status: response.status, 
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
-        }
-      );
-    }
-
-    const data = await response.json();
-    console.log('Successfully fetched project indicators');
-
-    return new Response(
-      JSON.stringify(data),
-      { 
-        status: 200, 
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+    const response = await fetch(
+      `https://api-support.hmg.agilean.com.br/api/v1/portal/global/project/${projectId}/indicators-long-data`,
+      {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
       }
     );
 
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('Agilean API error:', response.status, errorText);
+      throw new Error(`Erro ao buscar indicadores: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log('Indicators fetched successfully');
+
+    return new Response(JSON.stringify(data), {
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+    });
   } catch (error) {
-    console.error('Error in fetch-project-indicators:', error);
-    const errorMessage = error instanceof Error ? error.message : 'Internal server error';
+    console.error('Error in fetch-project-indicators function:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Erro desconhecido';
     return new Response(
-      JSON.stringify({ error: errorMessage }),
-      { 
-        status: 500, 
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+      JSON.stringify({
+        error: errorMessage,
+        result: null,
+        errorMessage: errorMessage,
+      }),
+      {
+        status: 400,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       }
     );
   }

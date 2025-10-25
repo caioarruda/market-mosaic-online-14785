@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import GridLayout, { Layout } from 'react-grid-layout';
-import { fetchCompanies, fetchProjectIndicatorsMedium } from '@/services/agileanCompaniesApi';
+import { fetchCompanies } from '@/services/agileanCompaniesApi';
+import { fetchProjectIndicators } from '@/services/agileanApi';
 import { WidgetConfig, WidgetColor } from '@/types/agilean';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -11,9 +12,10 @@ import { Loader2, Printer, Settings, Plus, Trash2, LayoutDashboard, Pencil } fro
 import { toast } from '@/hooks/use-toast';
 import { Sidebar } from '@/components/layout/Sidebar';
 import { TextWidget } from '@/components/widgets/TextWidget';
-import { RestrictionsKPIWidget } from '@/components/widgets/RestrictionsKPIWidget';
-import { RestrictionsChartWidget } from '@/components/widgets/RestrictionsChartWidget';
-import { RestrictionsTableWidget } from '@/components/widgets/RestrictionsTableWidget';
+import { KPIWidget } from '@/components/widgets/KPIWidget';
+import { ChartWidget } from '@/components/widgets/ChartWidget';
+import { TableWidget } from '@/components/widgets/TableWidget';
+import { InfoWidget } from '@/components/widgets/InfoWidget';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import agileanLogo from '@/assets/agilean-logo.png';
 import { WidgetConfigurator } from '@/components/dashboard/WidgetConfigurator';
@@ -106,8 +108,8 @@ export default function AgileanDynamicDashboard() {
   });
 
   const { data: indicatorsData, isLoading: indicatorsLoading } = useQuery({
-    queryKey: ['project-indicators-medium', selectedCompanyId],
-    queryFn: () => fetchProjectIndicatorsMedium(selectedCompanyId),
+    queryKey: ['project-indicators-long', selectedCompanyId],
+    queryFn: () => fetchProjectIndicators(selectedCompanyId),
     enabled: !!selectedCompanyId && !!token,
     refetchInterval: 60000,
   });
@@ -217,7 +219,7 @@ export default function AgileanDynamicDashboard() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <img src={agileanLogo} alt="Agilean logo" className="h-8 w-auto" />
-              <h1 className="text-3xl font-heading font-bold text-primary">Agilean Dashboard Pro</h1>
+              <h1 className="text-3xl font-heading font-bold text-primary">Dashboard Pro</h1>
             </div>
             
             <div className="flex items-center gap-3">
@@ -364,25 +366,29 @@ export default function AgileanDynamicDashboard() {
                       )}
 
                       {widget.type === 'kpi' && indicatorsData?.result && (
-                        <RestrictionsKPIWidget
+                        <KPIWidget
                           data={indicatorsData.result}
                           title={widget.title}
-                          backgroundColor={widget.color ? colorMap[widget.color] : undefined}
                         />
                       )}
                       {widget.type === 'chart' && indicatorsData?.result && (
-                        <RestrictionsChartWidget
+                        <ChartWidget
                           data={indicatorsData.result}
                           title={widget.title}
-                          chartType={widget.chartType as 'line' | 'area' || 'line'}
-                          backgroundColor={widget.color ? colorMap[widget.color] : undefined}
+                          chartType={widget.chartType || 'line'}
+                          metrics={widget.metrics || ['vaAccum', 'vpAccum']}
+                        />
+                      )}
+                      {widget.type === 'info' && indicatorsData?.result && (
+                        <InfoWidget
+                          data={indicatorsData.result}
+                          title={widget.title}
                         />
                       )}
                       {widget.type === 'table' && indicatorsData?.result && (
-                        <RestrictionsTableWidget
+                        <TableWidget
                           data={indicatorsData.result}
                           title={widget.title}
-                          backgroundColor={widget.color ? colorMap[widget.color] : undefined}
                         />
                       )}
                       {widget.type === 'text' && (

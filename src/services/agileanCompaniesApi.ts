@@ -24,17 +24,3 @@ export const fetchCompanies = async (): Promise<CompaniesResponse> => {
   return data as CompaniesResponse;
 };
 
-export const fetchProjectIndicatorsMedium = async (projectId: string): Promise<ProjectIndicatorsResponse> => {
-  const token = getToken();
-  
-  const { data, error } = await supabase.functions.invoke('fetch-project-indicators-medium', {
-    body: { projectId, token }
-  });
-
-  if (error) {
-    console.error('Error fetching project indicators:', error);
-    throw new Error(error.message || 'Falha ao buscar indicadores do projeto');
-  }
-
-  return data as ProjectIndicatorsResponse;
-};
