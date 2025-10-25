@@ -194,6 +194,8 @@ export default function AgileanDynamicDashboard() {
   };
 
   const layout: Layout[] = widgets.map((widget) => ({
+    i: widget.id,
+    x: widget.x,
     y: widget.y,
     w: widget.w,
     h: widget.h,
